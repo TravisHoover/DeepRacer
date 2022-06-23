@@ -28,6 +28,8 @@ def reward_function(params):
 
     next_point = waypoints[closest_waypoints[1]]
     prev_point = waypoints[closest_waypoints[0]]
+    speed_threshold = 0.5
+    abs_steering_threshold = 15
 
     # Calculate the direction in radius, arctan2(dy, dx),
     track_direction = math.atan2(next_point[1] - prev_point[1], next_point[0] - prev_point[0])
@@ -89,9 +91,6 @@ def reward_function(params):
     else:
         reward = 1e-3  # likely crashed/ close to off track
 
-    # Steering penalty threshold, change the number based on your action space setting
-    abs_steering_threshold = 15
-
     # Penalize reward if the car is steering too much
     if abs(params['steering_angle']) > abs_steering_threshold:  # Only need the absolute steering angle
         reward *= 0.5
@@ -99,7 +98,6 @@ def reward_function(params):
     # penalize reward for the car taking slow actions
     # speed is in m/s
     # we penalize any speed less than 0.5m/s
-    speed_threshold = 0.5
     if params['speed'] < speed_threshold:
         reward *= 0.5
 
@@ -135,8 +133,5 @@ def reward_function(params):
         reward -= 1.0  # penalize if the car is crashed
     if params['is_offtrack']:
         reward -= 1.0  # penalize if the car is off track
-
-    if params['progress'] == 100:
-        reward = 10000.0
 
     return float(reward)

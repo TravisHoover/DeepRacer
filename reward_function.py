@@ -45,6 +45,12 @@ def reward_function(params):
     #     reward -= 1.0
     if params['is_reversed']:
         reward -= 1.0
+
+    if params['steps'] > 200:
+        reward -= 1.0   # penalize if the car is stuck
+    else:
+        reward += 1.0
+
     if params['progress'] == 100:
         reward = 10000.0
 

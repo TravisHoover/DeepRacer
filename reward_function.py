@@ -32,8 +32,8 @@ def reward_function(params):
         reward += 1.0
     if params['is_left_of_center']:
         reward += 1.0
-    if params['is_off_track']:
-        reward -= 1.0
+    # if params['offtrack']:
+    #     reward -= 1.0
     if params['is_reversed']:
         reward -= 1.0
     if params['progress'] == 100:

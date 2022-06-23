@@ -1,5 +1,6 @@
 import math
 
+
 def reward_function(params):
     # Calculate 3 marks that are farther and father away from the center line
     marker_1 = 0.1 * params['track_width']

@@ -52,10 +52,6 @@ def reward_function(params):
         reward += 1.0
     else:
         reward -= 1.0
-    if params['objects_distance'][0] < 0.5:
-        reward += 1.0  # reward if the car is close to the object
-    else:
-        reward -= 1.0  # penalize if the car is far from the object
     if params['heading'] < 0:
         reward += 1.0  # reward if the car is heading towards the center
     else:

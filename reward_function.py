@@ -17,8 +17,11 @@ def reward_function(params):
     # penalize reward for the car taking slow actions
     # speed is in m/s
     # we penalize any speed less than 0.5m/s
-    SPEED_THRESHOLD = 0.5
-    if params['speed'] < SPEED_THRESHOLD:
+    speed_threshold = 0.5
+    if params['speed'] < speed_threshold:
         reward *= 0.5
+
+    if params['progress'] == 100:
+        reward = 10000.0
 
     return float(reward)

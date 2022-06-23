@@ -28,6 +28,14 @@ def reward_function(params):
     if params['speed'] < speed_threshold:
         reward *= 0.5
 
+    if params['all_wheels_on_track']:
+        reward += 1.0
+    if params['is_left_of_center']:
+        reward += 1.0
+    if params['is_off_track']:
+        reward -= 1.0
+    if params['is_reversed']:
+        reward -= 1.0
     if params['progress'] == 100:
         reward = 10000.0
 

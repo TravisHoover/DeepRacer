@@ -33,6 +33,8 @@ def reward_function(params):
 
     if params['all_wheels_on_track']:
         reward += 1.0
+    else:
+        reward -= 1.0  # penalize if the car is off track
     if params['closest_waypoint'] == 0:
         reward += 1.0
     if params['crashed']:

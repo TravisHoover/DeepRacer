@@ -35,21 +35,35 @@ def reward_function(params):
         reward += 1.0
     else:
         reward -= 1.0  # penalize if the car is off track
-    if params['closest_waypoint'] == 0:
-        reward += 1.0
-    if params['crashed']:
-        reward = -1.0
     if params['is_left_of_center']:
         reward += 1.0
-    # if params['offtrack']:
-    #     reward -= 1.0
     if params['is_reversed']:
         reward -= 1.0
 
     if params['steps'] > 200:
-        reward -= 1.0   # penalize if the car is stuck
+        reward -= 1.0  # penalize if the car is stuck
     else:
         reward += 1.0
+
+    if params['closest_waypoints'][0] == 0:
+        reward += 1.0  # reward if the car is on the first waypoint
+
+    if params['closest_objects'][0] == 0:
+        reward += 1.0
+    else:
+        reward -= 1.0
+    if params['objects_distance'][0] < 0.5:
+        reward += 1.0  # reward if the car is close to the object
+    else:
+        reward -= 1.0  # penalize if the car is far from the object
+    if params['heading'] < 0:
+        reward += 1.0  # reward if the car is heading towards the center
+    else:
+        reward -= 1.0
+    if params['is_crashed']:
+        reward -= 1.0  # penalize if the car is crashed
+    if params['is_offtrack']:
+        reward -= 1.0  # penalize if the car is off track
 
     if params['progress'] == 100:
         reward = 10000.0
